@@ -148,7 +148,7 @@ class CycleGANModel(BaseModel):
         fake_A = self.fake_A_pool.query(self.fake_A)
         self.loss_D_B = self.backward_D_basic(self.netD_B, self.real_A, fake_A)
 
-    def backward_G(self):
+    def calculate_loss_G(self):
         """Calculate the loss for generators G_A and G_B"""
         lambda_idt = self.opt.lambda_identity
         lambda_A = self.opt.lambda_A
@@ -175,6 +175,8 @@ class CycleGANModel(BaseModel):
         self.loss_cycle_B = self.criterionCycle(self.rec_B, self.real_B) * lambda_B
         # combined loss and calculate gradients
         self.loss_G = self.loss_G_A + self.loss_G_B + self.loss_cycle_A + self.loss_cycle_B + self.loss_idt_A + self.loss_idt_B
+    def backward_G(self):
+        self.calculate_loss_G()
         self.loss_G.backward()
 
     def optimize_parameters(self):

@@ -59,3 +59,15 @@ model [Pix2PixModel] was created
 [Network G] Total number of parameters : 54.414 M
 [Network D] Total number of parameters : 2.769 M
 -----------------------------------------------
+learning rate 0.0002000 -> 0.0002000
+End of epoch 1 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 2 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 3 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 4 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 5 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 6 / 200 	
