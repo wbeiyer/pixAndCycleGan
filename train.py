@@ -30,7 +30,7 @@ from collections import OrderedDict
 if __name__ == '__main__':
     # 解析命令行参数或配置文件中的选项，返回一个包含训练配置的对象 opt。这些选项可能包括数据集路径、模型类型、训练超参数等。
     optTrain = TrainOptions().parse()   # get training options
-    optVal = ValOptions().parse()   # get training options
+    # optVal = ValOptions().parse()   # get training options
 
     dataset_train = create_dataset(optTrain)  # create a dataset given opt.dataset_mode and other options
     dataset_train_size = len(dataset_train)    # get the number of images in the dataset.
@@ -40,8 +40,8 @@ if __name__ == '__main__':
     model.setup(optTrain)               # regular setup: load and print networks; create schedulers 加载预训练参数
     total_iters = 0                # the total number of training iterations
 
-    dataset_val = create_dataset(optVal)
-    dataset_val_size = len(dataset_val)
+    # dataset_val = create_dataset(optVal)
+    # dataset_val_size = len(dataset_val)
 
     # 创建一个DataFrame来存储损失信息
     loss_df1 = pd.DataFrame(columns=['Epoch', 'Iteration', 'Loss_Name', 'Loss_Value'])
@@ -82,39 +82,39 @@ if __name__ == '__main__':
 
         print('End of epoch %d / %d \t' % (epoch, optTrain.n_epochs + optTrain.n_epochs_decay))
         
-        # TODO 修改频次 在每个epoch结束后添加验证步骤
-        if epoch % optVal.validation_freq == 0 or epoch == optTrain.n_epochs + optTrain.n_epochs_decay:
-            model.eval()  # 设置模型为评估模式
-            optTrain.isTrain=False
-            lossesVal = OrderedDict()
-            for name in model.loss_names:
-                lossesVal[name] = 0.0  # 初始化每个损失项的累加值为 0
-            with torch.no_grad():  # 不需要计算梯度
-                for val_data in dataset_val:
-                    model.set_input(val_data)
-                    model.forward()  # 前向传播
-                    model.calculate_loss_D()
-                    model.calculate_loss_G()
-                    current_losses = model.get_current_losses()
-                    # 累加每个损失项
-                    for name, value in current_losses.items():
-                        lossesVal[name] += value
+        # # TODO 修改频次 在每个epoch结束后添加验证步骤
+        # if epoch % optVal.validation_freq == 0 or epoch == optTrain.n_epochs + optTrain.n_epochs_decay:
+        #     model.eval()  # 设置模型为评估模式
+        #     optTrain.isTrain=False
+        #     lossesVal = OrderedDict()
+        #     for name in model.loss_names:
+        #         lossesVal[name] = 0.0  # 初始化每个损失项的累加值为 0
+        #     with torch.no_grad():  # 不需要计算梯度
+        #         for val_data in dataset_val:
+        #             model.set_input(val_data)
+        #             model.forward()  # 前向传播
+        #             model.calculate_loss_D()
+        #             model.calculate_loss_G()
+        #             current_losses = model.get_current_losses()
+        #             # 累加每个损失项
+        #             for name, value in current_losses.items():
+        #                 lossesVal[name] += value
         
-            for name, loss_value in lossesVal.items():
-                loss_value =loss_value/dataset_val_size
-                print(f"{name}: {loss_value}")
-                new_row = {'Epoch': epoch, 'Iteration': total_iters, 'Loss_Name': name, 'Loss_Value': loss_value}
-                loss_df2 = pd.concat([loss_df2, pd.DataFrame(new_row, index=[0])], ignore_index=True)
+        #     for name, loss_value in lossesVal.items():
+        #         loss_value =loss_value/dataset_val_size
+        #         print(f"{name}: {loss_value}")
+        #         new_row = {'Epoch': epoch, 'Iteration': total_iters, 'Loss_Name': name, 'Loss_Value': loss_value}
+        #         loss_df2 = pd.concat([loss_df2, pd.DataFrame(new_row, index=[0])], ignore_index=True)
         
-            optTrain.isTrain=True  # 重新设置模型为训练模式
-            print('Val End of epoch %d / %d \t' % (epoch, optTrain.n_epochs + optTrain.n_epochs_decay))
+        #     optTrain.isTrain=True  # 重新设置模型为训练模式
+        #     print('Val End of epoch %d / %d \t' % (epoch, optTrain.n_epochs + optTrain.n_epochs_decay))
 
     # 在训练循环结束后写入训练损失
     training_loss_file = 'training_losses.xlsx'
     loss_df1.to_excel(training_loss_file, index=False)
     print(f"Training losses saved to {training_loss_file}")
 
-    # 在训练循环结束后写入验证损失
-    validation_loss_file = 'validation_losses.xlsx'
-    loss_df2.to_excel(validation_loss_file, index=False)
-    print(f"Validation losses saved to {validation_loss_file}")
+    # # 在训练循环结束后写入验证损失
+    # validation_loss_file = 'validation_losses.xlsx'
+    # loss_df2.to_excel(validation_loss_file, index=False)
+    # print(f"Validation losses saved to {validation_loss_file}")

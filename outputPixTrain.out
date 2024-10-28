@@ -1,60 +1,61 @@
 ----------------- Options ---------------
-             aspect_ratio: 1.0                           
                batch_size: 1                             
+                    beta1: 0.5                           
           checkpoints_dir: ./checkpoints                 
+           continue_train: False                         
                 crop_size: 256                           
                  dataroot: ./datasets/thread             	[default: None]
-             dataset_mode: template                      	[default: aligned]
+             dataset_mode: aligned                       
                 direction: AtoB                          
           display_winsize: 256                           
                     epoch: latest                        
-                     eval: False                         
+              epoch_count: 1                             
+                 gan_mode: vanilla                       
                   gpu_ids: 0                             
                 init_gain: 0.02                          
                 init_type: normal                        
                  input_nc: 3                             
-                  isTrain: False                         	[default: None]
+                  isTrain: True                          	[default: None]
+                lambda_L1: 100.0                         
                 load_iter: 0                             	[default: 0]
                 load_size: 256                           
-         max_dataset_size: 10000                         
-                    model: pix2pix                       	[default: test]
+                       lr: 0.0002                        
+           lr_decay_iters: 50                            
+                lr_policy: linear                        
+         max_dataset_size: inf                           
+                    model: pix2pix                       	[default: cycle_gan]
+                 n_epochs: 100                           
+           n_epochs_decay: 100                           
                n_layers_D: 3                             
                      name: thread_pix2pix                	[default: experiment_name]
                       ndf: 64                            
                      netD: basic                         
                      netG: unet_256                      
-       new_dataset_option: 2.0                           
                       ngf: 64                            
                no_dropout: False                         
                   no_flip: False                         
                      norm: batch                         
-                 num_test: 50                            
               num_threads: 4                             
                 output_nc: 3                             
-                    phase: test                          
+                    phase: train                         
+                pool_size: 0                             
                preprocess: resize_and_crop               
-              results_dir: ./results/                    
+               print_freq: 100                           
+             save_by_iter: False                         
+          save_epoch_freq: 10                            
+         save_latest_freq: 5000                          
            serial_batches: False                         
                    suffix:                               
                 use_wandb: False                         
                   verbose: False                         
        wandb_project_name: CycleGAN-and-pix2pix          
 ----------------- End -------------------
-dataset [TemplateDataset] was created
+dataset [AlignedDataset] was created
+The number of training images = 16224
+initialize network with normal
 initialize network with normal
 model [Pix2PixModel] was created
-loading the model from ./checkpoints/thread_pix2pix/latest_net_G.pth
 ---------- Networks initialized -------------
 [Network G] Total number of parameters : 54.414 M
+[Network D] Total number of parameters : 2.769 M
 -----------------------------------------------
-creating web directory ./results/thread_pix2pix/test_latest
-processing (0000)-th image... ['./datasets/thread/testA/0137_5.PNG']
-processing (0005)-th image... ['./datasets/thread/testA/103_5.PNG']
-processing (0010)-th image... ['./datasets/thread/testA/108_6.PNG']
-processing (0015)-th image... ['./datasets/thread/testA/110_5.PNG']
-processing (0020)-th image... ['./datasets/thread/testA/111_8.PNG']
-processing (0025)-th image... ['./datasets/thread/testA/115_5.PNG']
-processing (0030)-th image... ['./datasets/thread/testA/11_3.PNG']
-processing (0035)-th image... ['./datasets/thread/testA/121_4.PNG']
-processing (0040)-th image... ['./datasets/thread/testA/126_0.PNG']
-processing (0045)-th image... ['./datasets/thread/testA/132_7.PNG']
