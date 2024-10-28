@@ -68,8 +68,6 @@ if __name__ == '__main__':
     if opt.eval:
         model.eval()
     for i, data in enumerate(dataset):
-        if i >= opt.num_test:  # only apply our model to opt.num_test images. 50
-            break
         model.set_input(data)  # unpack data from data loader 将data设置为模型的输入
         model.test()           # run inference
         visuals = model.get_current_visuals()  # get image results

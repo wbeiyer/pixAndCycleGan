@@ -125,15 +125,15 @@ def define_G(input_nc, output_nc, ngf, netG, norm='batch', use_dropout=False, in
     """Create a generator
 
     Parameters:
-        input_nc (int) -- the number of channels in input images
+        input_nc (int) -- the number of channels in input images  RGB:3
         output_nc (int) -- the number of channels in output images
-        ngf (int) -- the number of filters in the last conv layer
+        ngf (int) -- the number of filters in the last conv layer 最后一层卷积层的滤波器数量
         netG (str) -- the architecture's name: resnet_9blocks | resnet_6blocks | unet_256 | unet_128
         norm (str) -- the name of normalization layers used in the network: batch | instance | none
         use_dropout (bool) -- if use dropout layers.
         init_type (str)    -- the name of our initialization method.
-        init_gain (float)  -- scaling factor for normal, xavier and orthogonal.
-        gpu_ids (int list) -- which GPUs the network runs on: e.g., 0,1,2
+        init_gain (float)  -- scaling factor for 正态分布normal, xavier and 正交初始化orthogonal.网络权重初始化方法
+        gpu_ids (int list) -- which GPUs the network runs on: e.g., 0,1,2 网络运行所使用的GPU ID列表 空就表示使用CPU
 
     Returns a generator
 

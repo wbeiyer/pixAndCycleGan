@@ -29,8 +29,8 @@ class TemplateDataset(BaseDataset):
         Parameters:
             parser          -- original option parser
             is_train (bool) -- whether training phase or test phase. You can use this flag to add training-specific or test-specific options.
-
         Returns:
+
             the modified parser.
         """
         parser.add_argument('--new_dataset_option', type=float, default=1.0, help='new dataset option')

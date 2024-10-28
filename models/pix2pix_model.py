@@ -88,11 +88,11 @@ class Pix2PixModel(BaseModel):
         """Run forward pass; called by both functions <optimize_parameters> and <test>."""
         self.fake_B = self.netG(self.real_A)  # G(A)
 
-    def backward_D(self):
+    def calculate_loss_D(self):
         """Calculate GAN loss for the discriminator"""
         # Fake; stop backprop to the generator by detaching fake_B
         fake_AB = torch.cat((self.real_A, self.fake_B), 1)  # we use conditional GANs; we need to feed both input and output to the discriminator
-        pred_fake = self.netD(fake_AB.detach())
+        pred_fake = self.netD(fake_AB.detach()) #detach() 方法断开梯度流，防止梯度传递到生成器
         self.loss_D_fake = self.criterionGAN(pred_fake, False)
         # Real
         real_AB = torch.cat((self.real_A, self.real_B), 1)
@@ -100,9 +100,12 @@ class Pix2PixModel(BaseModel):
         self.loss_D_real = self.criterionGAN(pred_real, True)
         # combine loss and calculate gradients
         self.loss_D = (self.loss_D_fake + self.loss_D_real) * 0.5
+
+    def backward_D(self):
+        self.calculate_loss_D()
         self.loss_D.backward()
 
-    def backward_G(self):
+    def calculate_loss_G(self):
         """Calculate GAN and L1 loss for the generator"""
         # First, G(A) should fake the discriminator
         fake_AB = torch.cat((self.real_A, self.fake_B), 1)
@@ -112,13 +115,16 @@ class Pix2PixModel(BaseModel):
         self.loss_G_L1 = self.criterionL1(self.fake_B, self.real_B) * self.opt.lambda_L1
         # combine loss and calculate gradients
         self.loss_G = self.loss_G_GAN + self.loss_G_L1
+
+    def backward_G(self):
+        self.calculate_loss_G()
         self.loss_G.backward()
 
     def optimize_parameters(self):
         #核心代码
         # Calculate losses, gradients, and update network weights; called in every training iteration
         self.forward()                   # compute fake images: G(A)
-        # update D
+        # update D 
         self.set_requires_grad(self.netD, True)  # enable backprop for D
         self.optimizer_D.zero_grad()     # set D's gradients to zero 确保梯度不会累计到之前的梯度上
         self.backward_D()                # calculate gradients for D

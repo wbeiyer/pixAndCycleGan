@@ -18,61 +18,103 @@ See options/base_options.py and options/train_options.py for more training optio
 See training and test tips at: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/blob/master/docs/tips.md
 See frequently asked questions at: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/blob/master/docs/qa.md
 """
-import time
-from options.train_options import TrainOptions
+
+from options.train_options import TrainOptions 
+from options.val_options import ValOptions
 from data import create_dataset
 from models import create_model
-from util.visualizer import Visualizer
+import torch
+import pandas as pd
+from collections import OrderedDict
 
 if __name__ == '__main__':
     # 解析命令行参数或配置文件中的选项，返回一个包含训练配置的对象 opt。这些选项可能包括数据集路径、模型类型、训练超参数等。
-    opt = TrainOptions().parse()   # get training options
-    dataset = create_dataset(opt)  # create a dataset given opt.dataset_mode and other options
-    dataset_size = len(dataset)    # get the number of images in the dataset.
-    print('The number of training images = %d' % dataset_size)
+    optTrain = TrainOptions().parse()   # get training options
+    optVal = ValOptions().parse()   # get training options
 
-    model = create_model(opt)      # create a model given opt.model and other options
-    model.setup(opt)               # regular setup: load and print networks; create schedulers 加载预训练参数
-    # visualizer = Visualizer(opt)   # create a visualizer that display/save images and plots 构建web输出结构
+    dataset_train = create_dataset(optTrain)  # create a dataset given opt.dataset_mode and other options
+    dataset_train_size = len(dataset_train)    # get the number of images in the dataset.
+    print('The number of training images = %d' % dataset_train_size)
+
+    model = create_model(optTrain)      # create a model given opt.model and other options
+    model.setup(optTrain)               # regular setup: load and print networks; create schedulers 加载预训练参数
     total_iters = 0                # the total number of training iterations
 
-    for epoch in range(opt.epoch_count, opt.n_epochs + opt.n_epochs_decay + 1):    # outer loop for different epochs; we save the model by <epoch_count>, <epoch_count>+<save_latest_freq>
-        epoch_start_time = time.time()  # timer for entire epoch
-        iter_data_time = time.time()    # timer for data loading per iteration
-        epoch_iter = 0                  # the number of training iterations in current epoch, reset to 0 every epoch
-        # visualizer.reset()              # reset the visualizer: make sure it saves the results to HTML at least once every epoch
-        model.update_learning_rate()    # update learning rates in the beginning of every epoch.
-        for i, data in enumerate(dataset):  # inner loop within one epoch 处理一个epoch内的每个batch
-            iter_start_time = time.time()  # timer for computation per iteration
-            if total_iters % opt.print_freq == 0:
-                t_data = iter_start_time - iter_data_time
+    dataset_val = create_dataset(optVal)
+    dataset_val_size = len(dataset_val)
 
-            total_iters += opt.batch_size
-            epoch_iter += opt.batch_size
+    # 创建一个DataFrame来存储损失信息
+    loss_df1 = pd.DataFrame(columns=['Epoch', 'Iteration', 'Loss_Name', 'Loss_Value'])
+    # loss_df2 = pd.DataFrame(columns=['Epoch', 'Iteration', 'Loss_Name', 'Loss_Value'])
+
+    for epoch in range(optTrain.epoch_count, optTrain.n_epochs + optTrain.n_epochs_decay + 1):    # outer loop for different epochs; we save the model by <epoch_count>, <epoch_count>+<save_latest_freq>
+        epoch_iter = 0                  # the number of training iterations in current epoch, reset to 0 every epoch
+        if epoch % optTrain.save_epoch_freq == 0 or epoch == optTrain.n_epochs + optTrain.n_epochs_decay: 
+            # 初始化一个空的累加字典
+            lossesTrain = OrderedDict()
+            for name in model.loss_names:
+                lossesTrain[name] = 0.0  # 初始化每个损失项的累加值为 0
+
+        for i, data in enumerate(dataset_train):  # inner loop within one epoch 处理一个epoch内的每个batch
+            total_iters += optTrain.batch_size
+            epoch_iter += optTrain.batch_size
             model.set_input(data)         # unpack data from dataset and apply preprocessing 解压缩数据并预处理
             model.optimize_parameters()   # calculate loss functions, get gradients, update network weights 计算梯度、优化参数 更新网络权重
 
-            if total_iters % opt.display_freq == 0:   # display images on visdom and save images to a HTML file 获取输出图片
-                save_result = total_iters % opt.update_html_freq == 0
-                model.compute_visuals()
-                # visualizer.display_current_results(model.get_current_visuals(), epoch, save_result)
+            if epoch % optTrain.save_epoch_freq == 0 or epoch == optTrain.n_epochs + optTrain.n_epochs_decay: 
+                current_losses = model.get_current_losses()
+                # 累加每个损失项
+                for name, value in current_losses.items():
+                    lossesTrain[name] += value
+            
+        model.update_learning_rate()    # update learning rates in the beginning of every epoch.
 
-            if total_iters % opt.print_freq == 0:    # print training losses and save logging information to the disk 可视化打印loss
-                losses = model.get_current_losses()
-                t_comp = (time.time() - iter_start_time) / opt.batch_size
-                # visualizer.print_current_losses(epoch, epoch_iter, losses, t_comp, t_data)
-                # if opt.display_id > 0:
-                    # visualizer.plot_current_losses(epoch, float(epoch_iter) / dataset_size, losses)
-
-            if total_iters % opt.save_latest_freq == 0:   # cache our latest model every <save_latest_freq> iterations
-                print('saving the latest model (epoch %d, total_iters %d)' % (epoch, total_iters))
-                save_suffix = 'iter_%d' % total_iters if opt.save_by_iter else 'latest' 
-                model.save_networks(save_suffix)
-
-            iter_data_time = time.time()
-        if epoch % opt.save_epoch_freq == 0:              # cache our model every <save_epoch_freq> epochs
+        # cache our model every <save_epoch_freq> epochs
+        if epoch % optTrain.save_epoch_freq == 0 or epoch == optTrain.n_epochs + optTrain.n_epochs_decay: 
             print('saving the model at the end of epoch %d, iters %d' % (epoch, total_iters))
             model.save_networks('latest') #存储网络模型
             model.save_networks(epoch)
+            for name, loss_value in lossesTrain.items():
+                loss_value =loss_value/dataset_train_size
+                print(f"{name}: {loss_value}")
+                new_row = {'Epoch': epoch, 'Iteration': total_iters, 'Loss_Name': name, 'Loss_Value': loss_value}
+                loss_df1 = pd.concat([loss_df1, pd.DataFrame(new_row, index=[0])], ignore_index=True)
 
-        print('End of epoch %d / %d \t Time Taken: %d sec' % (epoch, opt.n_epochs + opt.n_epochs_decay, time.time() - epoch_start_time))
+        print('End of epoch %d / %d \t' % (epoch, optTrain.n_epochs + optTrain.n_epochs_decay))
+        
+        # TODO 修改频次 在每个epoch结束后添加验证步骤
+        if epoch % optVal.validation_freq == 0 or epoch == optTrain.n_epochs + optTrain.n_epochs_decay:
+            model.eval()  # 设置模型为评估模式
+            optTrain.isTrain=False
+            lossesVal = OrderedDict()
+            for name in model.loss_names:
+                lossesVal[name] = 0.0  # 初始化每个损失项的累加值为 0
+            with torch.no_grad():  # 不需要计算梯度
+                for val_data in dataset_val:
+                    model.set_input(val_data)
+                    model.forward()  # 前向传播
+                    model.calculate_loss_D()
+                    model.calculate_loss_G()
+                    current_losses = model.get_current_losses()
+                    # 累加每个损失项
+                    for name, value in current_losses.items():
+                        lossesVal[name] += value
+        
+            for name, loss_value in lossesVal.items():
+                loss_value =loss_value/dataset_val_size
+                print(f"{name}: {loss_value}")
+                new_row = {'Epoch': epoch, 'Iteration': total_iters, 'Loss_Name': name, 'Loss_Value': loss_value}
+                loss_df2 = pd.concat([loss_df2, pd.DataFrame(new_row, index=[0])], ignore_index=True)
+        
+            optTrain.isTrain=True  # 重新设置模型为训练模式
+            print('Val End of epoch %d / %d \t' % (epoch, optTrain.n_epochs + optTrain.n_epochs_decay))
+
+    # 在训练循环结束后写入训练损失
+    training_loss_file = 'training_losses.xlsx'
+    loss_df1.to_excel(training_loss_file, index=False)
+    print(f"Training losses saved to {training_loss_file}")
+
+    # 在训练循环结束后写入验证损失
+    validation_loss_file = 'validation_losses.xlsx'
+    loss_df2.to_excel(validation_loss_file, index=False)
+    print(f"Validation losses saved to {validation_loss_file}")
