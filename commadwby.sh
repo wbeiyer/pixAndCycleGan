@@ -1,7 +1,7 @@
 #! /bin/bash
 ### 表示这是一个bash脚本
 
-#SBATCH --job-name=wbyClc
+#SBATCH --job-name=wbyPix
 ### 设置该作业的作业名
 
 #SBATCH --nodes=1
@@ -31,8 +31,8 @@ export TMPDIR=$HOME/tmp
 ### 初始化环境变量
 conda activate bright
 cd /home/u2022111265/code/pytorch-CycleGAN-and-pix2pix
-# python train.py --dataroot ../datasets/thread --name thread_pix2pix --model pix2pix --dataset_mode aligned --direction AtoB > outputPixTrain.log 2>&1
-python train.py --dataroot ../datasets/thread --name thread_cyclegan --model cycle_gan --dataset_mode unaligned > outputClcTrain.log 2>&1
-# python train.py --dataroot ../datasets/thread --name thread_pix2pix --model pix2pix --dataset_mode template > output.log 2>&1
-# python test.py --dataroot ../datasets/thread --name thread_pix2pix --model pix2pix --dataset_mode template > output1.log 2>&1
+python train.py --dataroot ./datasets/thread --name thread_pix2pix --model pix2pix --dataset_mode aligned --direction AtoB > outputPixTrain.log 2>&1
+# python train.py --dataroot ./datasets/thread --name thread_cyclegan --model cycle_gan --dataset_mode unaligned > outputClcTrain.log 2>&1
+# python train.py --dataroot ./datasets/thread --name thread_pix2pix --model pix2pix --dataset_mode template > output.log 2>&1
+# python test.py --dataroot ./datasets/thread --name thread_pix2pix --model pix2pix --dataset_mode template > output1.log 2>&1
 ### 程序的执行命令
