@@ -65,3 +65,32 @@ model [CycleGANModel] was created
 [Network D_A] Total number of parameters : 2.765 M
 [Network D_B] Total number of parameters : 2.765 M
 -----------------------------------------------
+learning rate 0.0002000 -> 0.0002000
+End of epoch 1 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 2 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 3 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 4 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 5 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 6 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 7 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 8 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 9 / 200 	
+learning rate 0.0002000 -> 0.0002000
+saving the model at the end of epoch 10, iters 162240
+D_A: 0.11553169233543997
+G_A: 0.5670563280937184
+cycle_A: 0.29896757065139884
+idt_A: 0.3383058963742574
+D_B: 0.10270882484191272
+G_B: 0.719798893382517
+cycle_B: 1.0221591645675385
+idt_B: 0.13459187667240885
+End of epoch 10 / 200 	

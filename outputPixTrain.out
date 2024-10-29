@@ -71,3 +71,207 @@ learning rate 0.0002000 -> 0.0002000
 End of epoch 5 / 200 	
 learning rate 0.0002000 -> 0.0002000
 End of epoch 6 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 7 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 8 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 9 / 200 	
+learning rate 0.0002000 -> 0.0002000
+saving the model at the end of epoch 10, iters 162240
+G_GAN: 2.469144174225235
+G_L1: 15.416624260886298
+D_real: 0.3633805484777318
+D_fake: 0.31993514603321255
+End of epoch 10 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 11 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 12 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 13 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 14 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 15 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 16 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 17 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 18 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 19 / 200 	
+learning rate 0.0002000 -> 0.0002000
+saving the model at the end of epoch 20, iters 324480
+G_GAN: 4.336571595856563
+G_L1: 15.582886754342262
+D_real: 0.19286261155072945
+D_fake: 0.17458123529925337
+End of epoch 20 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 21 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 22 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 23 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 24 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 25 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 26 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 27 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 28 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 29 / 200 	
+learning rate 0.0002000 -> 0.0002000
+saving the model at the end of epoch 30, iters 486720
+G_GAN: 5.250767953314541
+G_L1: 15.66622087262806
+D_real: 0.1423708793065452
+D_fake: 0.1293478758694809
+End of epoch 30 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 31 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 32 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 33 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 34 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 35 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 36 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 37 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 38 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 39 / 200 	
+learning rate 0.0002000 -> 0.0002000
+saving the model at the end of epoch 40, iters 648960
+G_GAN: 5.917329749238983
+G_L1: 15.70535105228042
+D_real: 0.11836057715922205
+D_fake: 0.10899006710450534
+End of epoch 40 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 41 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 42 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 43 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 44 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 45 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 46 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 47 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 48 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 49 / 200 	
+learning rate 0.0002000 -> 0.0002000
+saving the model at the end of epoch 50, iters 811200
+G_GAN: 6.420435570780862
+G_L1: 15.774403480963535
+D_real: 0.10080687078360251
+D_fake: 0.09326436020843462
+End of epoch 50 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 51 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 52 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 53 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 54 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 55 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 56 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 57 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 58 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 59 / 200 	
+learning rate 0.0002000 -> 0.0002000
+saving the model at the end of epoch 60, iters 973440
+G_GAN: 6.840403225917576
+G_L1: 15.784572917321436
+D_real: 0.09118078544444876
+D_fake: 0.0858818710803751
+End of epoch 60 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 61 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 62 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 63 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 64 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 65 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 66 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 67 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 68 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 69 / 200 	
+learning rate 0.0002000 -> 0.0002000
+saving the model at the end of epoch 70, iters 1135680
+G_GAN: 7.115075474315648
+G_L1: 15.796620283775487
+D_real: 0.08283878917649937
+D_fake: 0.0795514143156353
+End of epoch 70 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 71 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 72 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 73 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 74 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 75 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 76 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 77 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 78 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 79 / 200 	
+learning rate 0.0002000 -> 0.0002000
+saving the model at the end of epoch 80, iters 1297920
+G_GAN: 7.366050004673235
+G_L1: 15.839787662888948
+D_real: 0.0777652353703547
+D_fake: 0.07398637112732093
+End of epoch 80 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 81 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 82 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 83 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 84 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 85 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 86 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 87 / 200 	
+learning rate 0.0002000 -> 0.0002000
+End of epoch 88 / 200 	
