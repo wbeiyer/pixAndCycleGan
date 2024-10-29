@@ -94,3 +94,31 @@ G_B: 0.719798893382517
 cycle_B: 1.0221591645675385
 idt_B: 0.13459187667240885
 End of epoch 10 / 200 	
+Traceback (most recent call last):
+  File "train.py", line 58, in <module>
+    for i, data in enumerate(dataset_train):  # inner loop within one epoch 处理一个epoch内的每个batch
+  File "/wangbingye/pytorch-CycleGAN-and-pix2pix/data/__init__.py", line 87, in __iter__
+    for i, data in enumerate(self.dataloader):
+  File "/root/miniconda3/envs/nam/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 517, in __next__
+    data = self._next_data()
+  File "/root/miniconda3/envs/nam/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1199, in _next_data
+    return self._process_data(data)
+  File "/root/miniconda3/envs/nam/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1225, in _process_data
+    data.reraise()
+  File "/root/miniconda3/envs/nam/lib/python3.8/site-packages/torch/_utils.py", line 429, in reraise
+    raise self.exc_type(msg)
+FileNotFoundError: Caught FileNotFoundError in DataLoader worker process 3.
+Original Traceback (most recent call last):
+  File "/root/miniconda3/envs/nam/lib/python3.8/site-packages/torch/utils/data/_utils/worker.py", line 202, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/root/miniconda3/envs/nam/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/root/miniconda3/envs/nam/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/wangbingye/pytorch-CycleGAN-and-pix2pix/data/unaligned_dataset.py", line 57, in __getitem__
+    A_img = Image.open(A_path).convert('RGB')
+  File "/root/miniconda3/envs/nam/lib/python3.8/site-packages/PIL/Image.py", line 2891, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: './datasets/thread/trainA/CMX1D77_3.PNG'
+
+./pix.sh: line 5: utput.log: command not found
